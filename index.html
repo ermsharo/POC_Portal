@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <h1>File Upload Example</h1>
+    <form id="file-upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" id="file-input">
+        <button type="submit">Upload</button>
+    </form>
+    <p id="upload-status"></p>
+
+    <script>
+        const form = document.getElementById('file-upload-form');
+        const fileInput = document.getElementById('file-input');
+        const uploadStatus = document.getElementById('upload-status');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('http://127.0.0.1:5000/upload', {
+                method: 'POST',
+                body: formData,
+            })
+            .then((response) => response.text())
+            .then((data) => {
+                uploadStatus.textContent = data;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
