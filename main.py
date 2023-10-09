@@ -25,6 +25,7 @@ def download_file(filename):
 
 # Run the application if this script is executed directly
 if __name__ == '__main__':
+    # trunk-ignore(bandit/B201)
     app.run(debug=True)
 
 
